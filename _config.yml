@@ -10,7 +10,7 @@ site-twitter: "quocdev" #if your site has a twitter account, enter it here
 
 # Author Settings
 author: Quoc DEV # add your name
-author-img: david-freeman.jpg # add your photo
+author-img: my_logo.png # add your photo
 about-author: I am a Android developer focusing on development. Always hungry to keep learning. # add description
 twitter: quocdev # add your Twitter handle
 facebook: # add your Facebook handle
