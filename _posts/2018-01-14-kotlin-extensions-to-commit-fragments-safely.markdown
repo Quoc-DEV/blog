@@ -12,13 +12,13 @@ comments: true
 Since fragments appeared in Android, many developers have phê bình this component. The main reasons to not recommend fragments in android are; lifecycle phức tạp, hard to debug and easy to lose the fragment state.
 
 Và lý do cuối cùng, how many of you have seen this exception in your implementations?
-```
+~~~
 java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState
     at android.support.v4.app.FragmentManagerImpl.checkStateLoss(FragmentManager.java:1341)
     at android.support.v4.app.FragmentManagerImpl.enqueueAction(FragmentManager.java:1352)
     at android.support.v4.app.BackStackRecord.commitInternal(BackStackRecord.java:595)
     at android.support.v4.app.BackStackRecord.commit(BackStackRecord.java:574)
-```    
+~~~   
 Mục tiêu của bài viết này là chỉ cho bạn cách để ngăn chặn the state loss fragment exception using kotlin extensions and android support library (version up to 26.0.0).
 
 #### Why is this exception được xảy ra???
@@ -40,7 +40,7 @@ So, **How to combine both?**
 
 In the following example you can see how an activity extension can commit a fragment in a safe way using `isStateSaved()` method from the android support library:
 
-```
+~~~ kotlin
 /**
  * Method to replace the fragment. The [fragment] is added to the container view with id
  * [containerViewId] and a [tag]. The operation is performed by the supportFragmentManager.
@@ -63,11 +63,11 @@ fun AppCompatActivity.replaceFragmentSafely(fragment: Fragment,
         ft.commitAllowingStateLoss()
     }
 }
-```
+~~~
 
 Then, it can be invoked directly from any activity that extends from AppCompatActivity:
 
-```
+~~~ kotlin
     private fun replaceFragment() {
         replaceFragmentSafely(
                 fragment = Fragment2(),
@@ -76,5 +76,5 @@ Then, it can be invoked directly from any activity that extends from AppCompatAc
                 allowStateLoss = true
         )
     }
-```
+~~~
 Thank full and cover by [article](https://proandroiddev.com/kotlin-extensions-to-commit-fragments-safely-de06218a1f4) 
