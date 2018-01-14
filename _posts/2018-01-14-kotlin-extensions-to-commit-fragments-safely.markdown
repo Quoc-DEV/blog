@@ -6,6 +6,7 @@ description: You’ll find this post in your `_posts` directory. Go ahead and ed
 # Add post description (optional)
 img: safe_fragment.jpeg # Add image post (optional)
 tags: [kotlin, android]
+comments: true
 ---
 
 Since fragments appeared in Android, many developers have phê bình this component. The main reasons to not recommend fragments in android are; lifecycle phức tạp, hard to debug and easy to lose the fragment state.
