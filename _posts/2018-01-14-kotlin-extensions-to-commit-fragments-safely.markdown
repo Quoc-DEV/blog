@@ -12,14 +12,13 @@ comments: true
 Since fragments appeared in Android, many developers have phê bình this component. The main reasons to not recommend fragments in android are; lifecycle phức tạp, hard to debug and easy to lose the fragment state.
 
 Và lý do cuối cùng, how many of you have seen this exception in your implementations?
-
 ```
 java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState
     at android.support.v4.app.FragmentManagerImpl.checkStateLoss(FragmentManager.java:1341)
     at android.support.v4.app.FragmentManagerImpl.enqueueAction(FragmentManager.java:1352)
     at android.support.v4.app.BackStackRecord.commitInternal(BackStackRecord.java:595)
     at android.support.v4.app.BackStackRecord.commit(BackStackRecord.java:574)
-```
+```    
 Mục tiêu của bài viết này là chỉ cho bạn cách để ngăn chặn the state loss fragment exception using kotlin extensions and android support library (version up to 26.0.0).
 
 #### Why is this exception được xảy ra???
