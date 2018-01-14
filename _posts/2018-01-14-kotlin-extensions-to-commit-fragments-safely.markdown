@@ -4,7 +4,7 @@ title: Kotlin extensions to commit Fragments safely
 date: 2018-01-14 11:26:00 +0700
 description: You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes.
 # Add post description (optional)
-img: safe_fragment.jpeg # Add image post (optional)
+img: # Add image post (optional)
 tags: [kotlin, android]
 comments: true
 ---
