@@ -40,7 +40,7 @@ So, **How to combine both?**
 
 In the following example you can see how an activity extension can commit a fragment in a safe way using `isStateSaved()` method from the android support library:
 
-```Kotlin
+```
 /**
  * Method to replace the fragment. The [fragment] is added to the container view with id
  * [containerViewId] and a [tag]. The operation is performed by the supportFragmentManager.
@@ -67,7 +67,7 @@ fun AppCompatActivity.replaceFragmentSafely(fragment: Fragment,
 
 Then, it can be invoked directly from any activity that extends from AppCompatActivity:
 
-```Kotlin
+```
     private fun replaceFragment() {
         replaceFragmentSafely(
                 fragment = Fragment2(),
