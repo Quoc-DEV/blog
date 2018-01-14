@@ -1,12 +1,0 @@
----
-layout: post
-title: "Hello!gbkbkeabbdbiabfbskfbskbfkjsbfkjbs"
-date: 2017-04-06 13:32:20 +0300
-description: You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. # Add post description (optional)
-img:  # Add image post (optional)
----
-
-Hello sfnflksnfnslkfnslknfslkfnslkdf
- Kanji: 君の笑顔が　なによりも好きだった 
- 
- 同じことで　笑いあったね ふとした瞬間に　いろんな君を思い出す 『僕が現実的過ぎた』と今になって悔やんでる 『君との夢のために』もっと生きるべきだった 君のいない　秋祭り 今の僕は younger than yesterday 花びらが舞うように君は笑ったね もっと笑わせたかった 晴れているのに冷たい雨が降っている 君の笑顔が　なによりも好きだった みんな一人じゃ生きれない 君の帰る場所で 僕はずっと在り続けたい
