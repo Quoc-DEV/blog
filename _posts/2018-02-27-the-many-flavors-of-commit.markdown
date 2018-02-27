@@ -52,7 +52,7 @@ Tại thời điểm này, một trong hai điều dưới đây có thể xảy
  
  > Schedules một commit của transaction này là: việc commit không xảy ra ngay lập tức, nó sẽ được lên kế hoạch như công việc trên main thread sẽ được thực hiện trong thời gian tới mà thread đã sẵn sàng.
  
- Điều này có nghĩa là trong thực tế là bạn có thể thực hiện bất kỳ số lượng transaction nào trong một thời gian, và không một commit trong số đó sẽ thực sự xảy ra cho đến khi lần tiếp theo main thread đã sẵn sàng. Điều này bao gồm adding, removing, và replacing Fragments ngoại trừ popping the back stack thông qua `[popBackStack()](https://developer.android.com/reference/android/app/FragmentManager.html#popBackStack%28%29)`.
+ Điều này có nghĩa là trong thực tế là bạn có thể thực hiện bất kỳ số lượng transaction nào trong một thời gian, và không một commit trong số đó sẽ thực sự xảy ra cho đến khi lần tiếp theo main thread đã sẵn sàng. Điều này bao gồm adding, removing, và replacing Fragments ngoại trừ popping the back stack thông qua [popBackStack()](https://developer.android.com/reference/android/app/FragmentManager.html#popBackStack%28%29).
  
  Đôi khi bạn muốn các transaction của bạn xảy ra ngay lập tức. Các dev trước đây đã hoàn thành việc này bằng cách gọi hàm `executePendingTransactions()` sau khi gọi `commit()`, `executePendingTransactions()` sẽ thực hiện tất cả các transaction mà bạn hiện đang xếp hàng đợi và sẽ xử lý chúng ngay lập tức.
  
