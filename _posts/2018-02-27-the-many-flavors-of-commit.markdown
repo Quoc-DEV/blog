@@ -24,7 +24,9 @@ Vậy đặc điểm của mỗi loại trên là gì và chúng ta nên sử d�
 ### commit() vs commitAllowingStateLoss()
 Một trường hợp mà hầu hết các dev đều gặp phải khi sử dụng Fragments là bắn ra ngoại lệ `IllegalStateException` nói rằng bạn không thể thực hiện một `commit()` sau khi `onSaveInstanceState()`. Vậy điều này có ý nghĩa gì cho các dev?
 
-![error](https://github.com/quoc-dev/blog/blob/master/assets/img/error_fragment.png)
+
+![error]({{site.baseurl}}/assets/img/error_fragment.png)
+
 
 `commit()` và `commitAllowingStateLoss()` gần như giống nhau trong quá trình thực hiện. Chỉ khác biệt duy nhất khi bạn gọi `commit()` thì FragmentManager sẽ check nó đã lưu trạng thái của nó chưa. Nếu nó đã lưu trạng thái của nó, nó sẽ ném một ngoại lệ `IllegalStateException`.
 
@@ -42,7 +44,9 @@ Tại thời điểm này, một trong hai điều dưới đây có thể xảy
  
  Lần tiếp theo khi Activity dừng, trạng thái bao gồm FragmentB sẽ được lưu lại.
  
+ 
  ![map]({{site.baseurl}}/assets/img/map_commit.png)
+ 
  
  [Đây là demo](https://github.com/bherbst/FragmentStateLoss), Nếu bạn bật tùy chọn nhà phát triển `"Don’t Keep Activities"` trong cài đặt của thiết bị, bạn sẽ gặp trường hợp đầu tiên và ngược lại nếu bận tắt thì sẽ gặp trường hợp 2.
  
@@ -60,7 +64,9 @@ Tại thời điểm này, một trong hai điều dưới đây có thể xảy
  
  Chú ý là bạn không thể sử dụng `commitNow()` với một transaction mà bạn đang thêm vào back stack. Hãy suy nghĩ về nó bằng cách này - nếu bạn đã thêm một transaction vào back stack thông qua `commit()` sau đó ngay lập tức thêm một transaction vào back stack thông qua commitNow(), vậy bạck stack trông như thế nào? Bởi vì framework không thể cung cấp bất kỳ đảm bảo nào về đơn đặt hàng ở đây, đơn giản nó không được hỗ trợ.
  
+ 
  ![map_explain]({{site.baseurl}}/assets/img/map_commit_2.png)
+ 
  
  Trên một lưu ý phụ, `popBackStack()` có một bản sao `popBackStackImmediate()`, tương tự như `commit()` và `commitNow()`. Trước đây là không đồng bộ, sau này là đồng bộ.
 
