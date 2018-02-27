@@ -42,7 +42,7 @@ Tại thời điểm này, một trong hai điều dưới đây có thể xảy
  
  Lần tiếp theo khi Activity dừng, trạng thái bao gồm FragmentB sẽ được lưu lại.
  
- ![map](https://github.com/quoc-dev/blog/blob/master/assets/img/map_commit.png)
+ ![map]({{site.baseurl}}/assets/img/map_commit.png)
  
  [Đây là demo](https://github.com/bherbst/FragmentStateLoss), Nếu bạn bật tùy chọn nhà phát triển `"Don’t Keep Activities"` trong cài đặt của thiết bị, bạn sẽ gặp trường hợp đầu tiên và ngược lại nếu bận tắt thì sẽ gặp trường hợp 2.
  
@@ -60,7 +60,7 @@ Tại thời điểm này, một trong hai điều dưới đây có thể xảy
  
  Chú ý là bạn không thể sử dụng `commitNow()` với một transaction mà bạn đang thêm vào back stack. Hãy suy nghĩ về nó bằng cách này - nếu bạn đã thêm một transaction vào back stack thông qua `commit()` sau đó ngay lập tức thêm một transaction vào back stack thông qua commitNow(), vậy bạck stack trông như thế nào? Bởi vì framework không thể cung cấp bất kỳ đảm bảo nào về đơn đặt hàng ở đây, đơn giản nó không được hỗ trợ.
  
- ![map_explain](https://github.com/quoc-dev/blog/blob/master/assets/img/map_commit_2.png)
+ ![map_explain]({{site.baseurl}}/assets/img/map_commit_2.png)
  
  Trên một lưu ý phụ, `popBackStack()` có một bản sao `popBackStackImmediate()`, tương tự như `commit()` và `commitNow()`. Trước đây là không đồng bộ, sau này là đồng bộ.
 
