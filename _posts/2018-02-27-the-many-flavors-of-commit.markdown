@@ -3,7 +3,7 @@ layout: post
 title: The many flavors of commit()
 date: 2018-02-27 11:26:00 +0700
 description: You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. # Add post description (optional)
-img: mac.jpg # Add image post (optional)
+img: flavors_commit.jpg # Add image post (optional)
 tags: [Java, android]
 comments: true
 ---
@@ -64,20 +64,10 @@ Tại thời điểm này, một trong hai điều dưới đây có thể xảy
  
  Trên một lưu ý phụ, `popBackStack()` có một bản sao `popBackStackImmediate()`, tương tự như `commit()` và `commitNow()`. Trước đây là không đồng bộ, sau này là đồng bộ.
 
+ #### Bạn nên dùng cái nào?
  
- 
+ - Nếu bạn cần đồng bộ và bạn không thêm transaction của bạn vào back stack, sử dụng `commitNow()`. The support library sử dụng phần này trong FragmentPagerAdapter để đảm bảo rằng các page chính xác đã được thêm vào hoặc xoá khi kết thúc bản cập nhật. Nói chung, nó là tốt để sử dụng bất cứ lúc nào bạn đang thực hiện một transaction mà bạn không phải là thêm vào back stack.
+ - Nếu bạn đang thực hiện nhiều transaction, không cần đồng bộ, hoặc thêm các transaction vào back stack, bạn nên gắn bó với `commit()`.
+ - Sử dụng `executePendingTransactions()` nếu bạn cần đảm bảo rằng một tập hợp các transaction xảy ra bởi một thời điểm nhất định.
 
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-
+Thank full and cover by [article](https://medium.com/@bherbst/the-many-flavors-of-commit-186608a015b1)
