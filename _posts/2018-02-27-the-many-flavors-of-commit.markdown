@@ -8,7 +8,7 @@ tags: [Java, android]
 comments: true
 ---
 
-### FragmentTransactionKhi nào bạn lựa chọn `commit()` một cách chính xác cho FragmentTransaction?
+### FragmentTransaction Khi nào bạn lựa chọn `commit()` một cách chính xác cho FragmentTransaction?
 
 
 `FragmentTransaction` nằm trong support library và hiện tại nó cung cấp rất nhiều cách khác nhau để commit một transaction:
@@ -50,7 +50,7 @@ Tại thời điểm này, một trong hai điều dưới đây có thể xảy
  
  [Đây là demo](https://github.com/bherbst/FragmentStateLoss), Nếu bạn bật tùy chọn nhà phát triển `"Don’t Keep Activities"` trong cài đặt của thiết bị, bạn sẽ gặp trường hợp đầu tiên và ngược lại nếu bận tắt thì sẽ gặp trường hợp 2.
  
- ### commit(), commitNow(), and executePendingTransactions()
+### commit(), commitNow(), and executePendingTransactions()
  
  Các biến thể khác của `commit()` chỉ định khi transaction xảy ra. Tài liệu cho `commit()` đưa ra lời giải thích cho sự lựa chọn:
  
@@ -70,7 +70,7 @@ Tại thời điểm này, một trong hai điều dưới đây có thể xảy
  
  Trên một lưu ý phụ, `popBackStack()` có một bản sao `popBackStackImmediate()`, tương tự như `commit()` và `commitNow()`. Trước đây là không đồng bộ, sau này là đồng bộ.
 
- #### Bạn nên dùng cái nào?
+#### Bạn nên dùng cái nào?
  
  - Nếu bạn cần đồng bộ và bạn không thêm transaction của bạn vào back stack, sử dụng `commitNow()`. The support library sử dụng phần này trong FragmentPagerAdapter để đảm bảo rằng các page chính xác đã được thêm vào hoặc xoá khi kết thúc bản cập nhật. Nói chung, nó là tốt để sử dụng bất cứ lúc nào bạn đang thực hiện một transaction mà bạn không phải là thêm vào back stack.
  - Nếu bạn đang thực hiện nhiều transaction, không cần đồng bộ, hoặc thêm các transaction vào back stack, bạn nên gắn bó với `commit()`.
