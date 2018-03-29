@@ -101,14 +101,133 @@ Bạn nhận ra `T.run` chỉ thực hiện như một `extension function` và 
 
 Tuy nhiên, bạn nhận ra `T.let` đang gửi chính nó vào `block: T.()`. Do đó điều này giống như một đối số lambda đã gửi nó. Nó có thể được gọi trong scope như `it` Mình gọi nó là `it as argument`
 
-Từ những phân tích trên có vẻ như `T.run` hiệu quả hơn `T.let` vì nó bao hàm hơn. Nhưng có một số chức năng
+Từ những phân tích trên có vẻ như `T.run` hiệu quả hơn `T.let` vì nó bao hàm hơn. Nhưng có một số ưu điểm tinh tế của `T.let` dưới đây bạn nên lưu ý:
 
+- `T.let` phân biệt một cách rõ ràng hơn giữa sử dụng variable function/member, the external class function/member.
+- Nếu `this` không thể được lược bỏ đi thì nó được truyền đi như một parameter của một function. `it` trông rõ ràng xúc tích hơn `this`.
+- `T.let` cho phép bạn chuyển đổi tên biến tốt hơn nghĩa là bạn có thể thay `it` bằng một cái tên khác!
 
+~~~kotlin
+stringVariable?.let {
+      nonNullString ->
+      println("The non null string is $nonNullString")
+}
+~~~
 
+#### 3. Return this vs. other type
 
+Bây giờ, hãy nhìn vào `T.let` và `T.also` chúng đều giống nhau. Nếu chúng ta nhìn vào content bên dưới đây:
 
+~~~kotlin
+stringVariable?.let {
+      println("The length of this String is ${it.length}")
+}
+// Exactly the same as below
+stringVariable?.also {
+      println("The length of this String is ${it.length}")
+}
+~~~
 
+Tuy nhiên có 1 chút đặc điểm khác biệt là `nó sẽ return lại cái gì?` `T.let` thì return về một type khác của value trong khi `T.also` return chính nó!  
 
+Cả hai đều hữu dụng cho chuỗi functions, để đơn giản hãy nhìn vào minh hoạ dưới đây:
+
+~~~kotlin
+val original = "abc"
+// Evolve the value and send to the next chain
+original.let {
+    println("The original String is $it") // "abc"
+    it.reversed() // evolve it as parameter to send to next let
+}.let {
+    println("The reverse String is $it") // "cba"
+    it.length  // can be evolve to other type
+}.let {
+    println("The length of the String is $it") // 3
+}
+// Wrong
+// Same value is sent in the chain (printed answer is wrong)
+original.also {
+    println("The original String is $it") // "abc"
+    it.reversed() // even if we evolve it, it is useless
+}.also {
+    println("The reverse String is ${it}") // "abc"
+    it.length  // even if we evolve it, it is useless
+}.also {
+    println("The length of the String is ${it}") // "abc"
+}
+// Corrected for also (i.e. manipulate as original string
+// Same value is sent in the chain 
+original.also {
+    println("The original String is $it") // "abc"
+}.also {
+    println("The reverse String is ${it.reversed()}") // "cba"
+}.also {
+    println("The length of the String is ${it.length}") // 3
+}
+~~~
+
+Nhìn vào phía trên có thể bạn cho rằng `T.also` giống như vô nghĩa nhưng hãy suy nghĩ chậm lại nó có một số ưu điểm:
+
+- Nó có thể cung cấp một quy trình tách biệt rất rõ ràng trên cùng một đối tượng, tức là làm nhỏ functions.
+- Nó có thể rất mạnh mẽ cho tự control trước khi được sử dụng, tạo thành một chuỗi functions tiên tiếp.
+
+Khi áp dụng cả 2 nó sẽ tạo ra một sức mạnh kiểu một bên sẽ phát triển và 1 bên sẽ giữ lại chính nó xem minh hoạ dưới đây:
+
+~~~kotlin
+// Normal approach
+fun makeDir(path: String): File  {
+    val result = File(path)
+    result.mkdirs()
+    return result
+}
+// Improved approach
+fun makeDir(path: String) = path.let{ File(it) }.also{ it.mkdirs() }
+~~~
+
+### Hãy nhìn vào tất cả đặc tính
+
+Nhìn vào 3 đặc tính trên chúng ta có thể phần nào hiểu về cách thức hoạt động của các functions. Tiếp theo mình xin nói về `T.apply` nó không được giới thiệu ở trên. 3 thuộc tính của `T.apply` như dưới đây:
+
+- Nó là một extension function.
+- Nó truyền `this` vì là một argument.
+- Nó returns về chính nó.
+
+Dưới đây là mô tả:
+
+~~~kotlin
+// Normal approach
+fun createInstance(args: Bundle) : MyFragment {
+    val fragment = MyFragment()
+    fragment.arguments = args
+    return fragment
+}
+// Improved approach
+fun createInstance(args: Bundle) 
+              = MyFragment().apply { arguments = args }
+~~~
+
+Hoặc chúng ta có thể tạo nó thành một chuỗi function
+
+~~~kotlin
+// Normal approach
+fun createIntent(intentData: String, intentAction: String): Intent {
+    val intent = Intent()
+    intent.action = intentAction
+    intent.data=Uri.parse(intentData)
+    return intent
+}
+// Improved approach, chaining
+fun createIntent(intentData: String, intentAction: String) =
+        Intent().apply { action = intentAction }
+                .apply { data = Uri.parse(intentData) }
+~~~
+
+### Vậy nên chọn lựa cái nào?
+
+Rõ ràng, với 3 đặc tính trên chúng ta có thể phân loại chức năng một cách phù hợp. Và dựa trên đó, chúng ta có thể hình thành một quyết định dưới đây để giúp xác định functions nào chúng ta muốn sử dụng cho những gì chúng ta cần.
+
+![tree_detail]({{site.baseurl}}/assets/img/15_3_2018_pic2.png)
+
+Hy vọng rằng với mô tả ở trên sẽ làm rõ các functions rõ ràng hơn, và đơn giản hóa việc ra quyết định của bạn, cho phép bạn nắm vững các functions này một cách thích hợp.
 
 Thank full and cover by [article](https://medium.com/@elye.project/mastering-kotlin-standard-functions-run-with-let-also-and-apply-9cd334b0ef84)
-
